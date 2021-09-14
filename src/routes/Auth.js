@@ -59,10 +59,7 @@ const Auth = () => {
       if (name === "github") {
         provider = new GithubAuthProvider();
       }
-      const result = await signInWithPopup(authService, provider);
-      //const credential = provider.credentialFromResult(result);
-      //const token = credential.accessToken;
-      //const user = result.user;
+      await signInWithPopup(authService, provider);
     } catch (error) {
       console.log(error);
     }
@@ -108,4 +105,3 @@ const Auth = () => {
   );
 };
 export default Auth;
-// function component

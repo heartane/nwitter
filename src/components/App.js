@@ -1,27 +1,28 @@
 // import React from 'react';
 import { useEffect, useState } from "react";
-import AppRouter from "components/Router"; // 절대경로
-// import AppRouter from './Router'; // 상대경로
+import AppRouter from "components/Router";
 import { authService } from "fbase";
 import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
   const [init, setInit] = useState(false);
-  const [isLogin, setIsLogin] = useState(false); // 로그인 유무를 모른다!
+  const [userObj, setUserObj] = useState(null);
+
   useEffect(() => {
-    // 로그인 유무에 따라 다른 라우트를 주려면 onAuthStateChanged()필요!
+    // 로그인 유무에 따라 다른 라우트 onAuthStateChanged()
     onAuthStateChanged(authService, (user) => {
-      if (user) {
-        setIsLogin(true);
-      } else {
-        setIsLogin(false);
-      }
+      if (user) setUserObj(user);
+      else setUserObj(null);
       setInit(true);
     });
-  }, [isLogin]);
+  }, []);
   return (
     <>
-      {init ? <AppRouter isLogin={isLogin} /> : "initializing..."}
+      {init ? (
+        <AppRouter isLogin={Boolean(userObj)} userObj={userObj} />
+      ) : (
+        "initializing..."
+      )}
       <footer>&copy; Copyright {new Date().getFullYear()} Nwitter</footer>
     </>
   );
