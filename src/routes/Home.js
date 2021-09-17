@@ -18,6 +18,7 @@ const Home = ({ userObj }) => {
   const [attached, setAttached] = useState(""); // 이미지 업로드 상태
 
   useEffect(() => {
+    // 스냅샷 가져오기
     const q = query(
       collection(dbService, "nweets"),
       orderBy("createdAt", "desc")

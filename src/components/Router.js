@@ -5,11 +5,11 @@ import Home from "routes/Home";
 import Profile from "routes/Profile";
 import Navigation from "components/Navigation";
 
-const AppRouter = ({ isLogin, userObj }) => {
+const AppRouter = ({ isLogin, userObj, refreshUser }) => {
   // 로그인 유무에 따라 라우트가 달라진다.
   return (
     <Router>
-      {isLogin && <Navigation />}
+      {isLogin && <Navigation userObj={userObj} />}
       <Switch>
         {isLogin ? (
           <>
@@ -17,7 +17,7 @@ const AppRouter = ({ isLogin, userObj }) => {
               <Home userObj={userObj} />
             </Route>
             <Route exact path="/profile">
-              <Profile />
+              <Profile userObj={userObj} refreshUser={refreshUser} />
             </Route>
           </>
         ) : (
