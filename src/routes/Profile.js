@@ -40,7 +40,7 @@ const Profile = ({ userObj, refreshUser }) => {
   };
   useEffect(() => {
     getMyNweets();
-  }, []);
+  });
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -53,21 +53,26 @@ const Profile = ({ userObj, refreshUser }) => {
   };
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
+    <div className="profile_container">
+      <form className="profile_form" onSubmit={onSubmit}>
         <input
+          className="profile_input"
           type="text"
           placeholder="Display name"
           value={newDpName}
           onChange={onChange}
+          autoFocus
         />
-        <input type="submit" value="Update Profile" />
+        <input
+          className="profile_update"
+          type="submit"
+          value="Update Profile"
+        />
       </form>
-      <button onClick={onLogOutClick}>Log Out</button>
-    </>
-    //로그아웃은 되지만 링크는 profile이다.
-    //home으로 가도록 Router에서 redirect설정
-    //혹은 react hook인 useHistory()사용.
+      <span className="profile_logout" onClick={onLogOutClick}>
+        Log Out
+      </span>
+    </div>
   );
 };
 export default Profile;
